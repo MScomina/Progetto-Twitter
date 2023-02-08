@@ -1,0 +1,24 @@
+/project/public/.DS_Store
+/project/public/node_modules
+
+# local env files
+/project/public/.env.local
+/project/public/.env.*.local
+
+# Log files
+/project/public/npm-debug.log*
+/project/public/yarn-debug.log*
+/project/public/yarn-error.log*
+/project/public/pnpm-debug.log*
+
+# Editor directories and files
+/project/public/.idea
+/project/public/.vscode
+/project/public/*.suo
+/project/public/*.ntvs*
+/project/public/*.njsproj
+/project/public/*.sln
+/project/public/*.sw?
+
+/project/server/node_modules
+*.docx

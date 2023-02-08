@@ -1,0 +1,128 @@
+<template>
+    <div id="navbar" class="container">
+    <nav class="navbar">
+        <div class="nav-left">
+            <router-link to="/" class="nav-button">Home</router-link>
+        </div>        
+        <div class="nav-center">
+            <form @submit.prevent="search">
+                <input type="text" id="search" class="search-input" placeholder="Search user..." />
+                <router-link to="/search" class="nav-button search-button">Search</router-link>
+            </form>
+        </div>
+        <div class="nav-right">
+            <template v-if="!this.isAuthenticated">
+                <router-link to="/login" class="nav-button">Login</router-link>
+                <router-link to="/register" class="nav-button">Register</router-link>
+            </template>
+            <template v-else>
+                <router-link to="/write" class="nav-button">Post</router-link>
+                <router-link to="/follows" class="nav-button">Follows</router-link>
+            </template>
+        </div>
+    </nav>
+    </div>
+</template>
+
+<style scoped>
+.navbar {
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.container {
+    margin-top: 70px;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #000000;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    order: 1;
+}
+
+.nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    order: 3;
+}
+
+.search-input {
+    border: 1px solid #EEEEEE;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    order: 1;
+}
+
+.search-button {
+    margin: 5px;
+    border: 1px solid #FFFFFF;
+    border-radius: 20px;
+    order: 2;
+}
+
+.nav-button:hover {
+    background-color: #555555;
+    box-shadow: 0px 0px 10px #444444;
+    transform: scale(1.05);
+}
+
+.nav-button:active {
+    transition: transform 0.15s;
+    transform: scale(0.9);
+}
+</style>  
+
+<script>
+export default {
+    name: "Navbar",
+    computed : {
+        isAuthenticated() {
+            return this.$store.state.isAuthenticated;
+        }
+    },
+    methods: {
+        search() {
+            console.log(`Searching for ${this.searchTerm}`);
+            /*const getResults = async () => {
+                try {
+
+                } catch(err) {
+
+                }
+            }*/
+        }
+    }
+}
+</script>
