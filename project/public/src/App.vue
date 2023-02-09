@@ -107,4 +107,28 @@ body {
 .view {
     margin-top: 70px;
 }
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    .view {
+        margin-top: 52px;
+    }
+}
+@media (max-width: 520px) {
+    body {
+        font-size: 12px;
+    }
+    .view {
+        margin-top: 46px;
+    }
+}
+@media (max-width: 400px) {
+    body {
+        font-size: 10px;
+    }
+    .view {
+        margin-top: 42px;
+    }
+}
 </style>

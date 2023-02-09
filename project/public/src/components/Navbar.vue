@@ -1,26 +1,26 @@
 <template>
     <div id="navbar" class="container">
-    <nav class="navbar">
-        <div class="nav-left">
-            <router-link to="/" class="nav-button">Home</router-link>
-        </div>        
-        <div class="nav-center">
-            <form @submit.prevent="search">
-                <input type="text" id="search" class="search-input" placeholder="Search user..." />
-                <router-link to="/search" class="nav-button search-button">Search</router-link>
-            </form>
-        </div>
-        <div class="nav-right">
-            <template v-if="!this.isAuthenticated">
-                <router-link to="/login" class="nav-button">Login</router-link>
-                <router-link to="/register" class="nav-button">Register</router-link>
-            </template>
-            <template v-else>
-                <router-link to="/write" class="nav-button">Post</router-link>
-                <router-link to="/follows" class="nav-button">Follows</router-link>
-            </template>
-        </div>
-    </nav>
+        <nav class="navbar">
+            <div class="nav-left">
+                <router-link to="/" class="nav-button">Home</router-link>
+            </div>        
+            <div class="nav-center">
+                <form @submit.prevent="search">
+                    <input type="text" id="search" class="search-input" placeholder="Search user..." />
+                    <router-link to="/search" class="nav-button search-button">Search</router-link>
+                </form>
+            </div>
+            <div class="nav-right">
+                <template v-if="!this.isAuthenticated">
+                    <router-link to="/login" class="nav-button">Login</router-link>
+                    <router-link to="/register" class="nav-button">Register</router-link>
+                </template>
+                <template v-else>
+                    <router-link to="/write" class="nav-button">Post</router-link>
+                    <router-link to="/follows" class="nav-button">Follows</router-link>
+                </template>
+            </div>
+        </nav>
     </div>
 </template>
 
@@ -41,6 +41,7 @@
 .container {
     margin-top: 70px;
 }
+
 
 .nav-button {
     display: inline-block;
@@ -101,6 +102,52 @@
 .nav-button:active {
     transition: transform 0.15s;
     transform: scale(0.9);
+}
+/*Special cases for small width screens, makes navbar smaller.*/
+@media (max-width: 768px) {
+    .nav-button {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 5px;
+    }
+    .search-input {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+    .search-button {
+        border-radius: 10px;
+    }
+}
+@media (max-width: 520px) {
+    .nav-button {
+        padding: 4px 8px;
+        font-size: 10px;
+        border-radius: 4px;
+    }
+    .search-input {
+        padding: 4px 8px;
+        font-size: 10px;
+        border-radius: 8px;
+    }
+    .search-button {
+        border-radius: 8px;
+    }
+}
+@media (max-width: 400px) {
+    .nav-button {
+        padding: 3px 6px;
+        font-size: 8px;
+        border-radius: 3px;
+    }
+    .search-input {
+        padding: 3px 6px;
+        font-size: 8px;
+        border-radius: 6px;
+    }
+    .search-button {
+        border-radius: 6px;
+    }
 }
 </style>  
 

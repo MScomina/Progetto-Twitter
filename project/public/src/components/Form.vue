@@ -23,6 +23,15 @@ input {
     order: 1;
 }
 
+textarea {
+    width: 250px;
+    height: 100px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    resize: none;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -54,14 +63,64 @@ input {
     transition: transform 0.15s;
     transform: scale(0.9);
 }
-
-textarea {
-    width: 250px;
-    height: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    resize: none;
+@media (max-width: 768px) {
+    input {
+        padding: 8px 16px;
+        font-size: 15px;
+        margin: 4px;
+        border-radius: 16px;
+    }
+    textarea {
+        width: 200px;
+        height: 80px;
+        margin: 8px;
+        border-radius: 4px;
+        font-size: 15px;
+    }
+    .btn {
+        padding: 8px 16px;
+        font-size: 15px;
+        border-radius: 16px;
+    }
+}
+@media (max-width: 520px) {
+    input {
+        padding: 7px 14px;
+        font-size: 12px;
+        margin: 3px;
+        border-radius: 14px;
+    }
+    textarea {
+        width: 175px;
+        height: 70px;
+        margin: 7px;
+        border-radius: 3px;
+        font-size: 12px;
+    }
+    .btn {
+        padding: 7px 14px;
+        font-size: 12px;
+        border-radius: 14px;
+    }
+}
+@media (max-width: 400px) {
+    input {
+        padding: 6px 12px;
+        font-size: 10px;
+        margin: 2px;
+        border-radius: 12px;
+    }
+    textarea {
+        width: 150px;
+        height: 60px;
+        margin: 6px;
+        font-size: 10px;
+    }
+    .btn {
+        padding: 6px 12px;
+        font-size: 10px;
+        border-radius: 12px;
+    }
 }
 </style>
 

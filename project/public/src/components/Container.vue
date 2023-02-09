@@ -38,4 +38,25 @@
     box-shadow: 0px 0px 10px #ddd;
     margin: auto;
 }   
+@media (max-width: 768px) {
+    .content {
+        width: 420px;
+        padding: 10px;
+        border-radius: 26px;
+    }
+}
+@media (max-width: 520px) {
+    .content {
+        width: 360px;
+        padding: 8px;
+        border-radius: 25px;
+    }
+}
+@media (max-width: 400px) {
+    .content {
+        width: 300px;
+        padding: 6px;
+        border-radius: 20px;
+    }
+}
 </style>

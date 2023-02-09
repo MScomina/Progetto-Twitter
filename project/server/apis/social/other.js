@@ -65,7 +65,7 @@ router.get("/feed", async function(req, res) {
         }
     ]);
     if(followedUsersIds.length === 0) {
-        res.status(404).json({"error" : "NoMessagesFound", "message" : "No messages appeared in your feeds!"});
+        res.status(404).json({"error" : "NoFollowersFound", "message" : "No messages appeared in your feeds!"});
         return;
     }
     const messages = await Message.aggregate([

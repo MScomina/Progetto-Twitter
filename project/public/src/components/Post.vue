@@ -48,13 +48,11 @@
 }
 .message {
     text-align: justify;
-    font-size: 16px;
 }
 .span-username {
     font-style: italic;
     order: 2;
     flex-grow: 1;
-    font-size: 12px;    
     cursor: pointer;
 }
 .span-username:hover { 
@@ -125,6 +123,33 @@ cite.info {
 
 .liked {
     color: #5F8D4E;
+}
+@media (max-width: 784px) {
+    .author {
+        height: 24px;
+        font-size: 12px;
+    }
+    .bottom {
+        height: 30px;
+    }
+}
+@media (max-width: 520px) {
+    .author {
+        height: 20px;
+        font-size: 10px;
+    }
+    .bottom {
+        height: 25px;
+    }
+}
+@media (max-width: 400px) {
+    .author {
+        height: 18px;
+        font-size: 9px;
+    }
+    .bottom {
+        height: 22px;
+    }
 }
 </style>
 
