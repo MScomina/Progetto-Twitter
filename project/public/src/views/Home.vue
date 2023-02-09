@@ -17,10 +17,27 @@
     </div>
 </template>
 
+<style scoped>
+.Home {
+    width: 99%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.feed {
+    margin-bottom: 10px;
+}
+</style>
+
 <script>
 import Message from "../components/Message.vue";
 import Post from "../components/Post.vue";
 export default { 
+    name: "Home",
+    components: {
+        Message,
+        Post
+    },
     data() {
         return {
             titleUnauth: "Welcome!",
@@ -62,22 +79,6 @@ export default {
                 }
             }
         }
-    },
-    components: {
-        Message,
-        Post
     }
 }
 </script>
-
-<style scoped>
-.Home {
-    width: 99%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.feed {
-    margin-bottom: 10px;
-}
-</style>
