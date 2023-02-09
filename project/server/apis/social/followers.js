@@ -34,7 +34,10 @@ router.get("/:userId", async function(req, res) {
         },
         {
             $addFields: {
-                "username" : "$following.username"
+                "username" : "$following.username",
+                "name" : "$following.name",
+                "surname" : "$following.username",
+                "description" : "$following.description"
             }
         },
         {
@@ -43,7 +46,9 @@ router.get("/:userId", async function(req, res) {
         {
             $project: {
                 "username" : 1,
-                "createdAt" : 1,
+                "name" : 1,
+                "surname" : 1,
+                "description" : 1,
                 "_id": 0
             }
         }

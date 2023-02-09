@@ -20,7 +20,7 @@
             <div class="break"></div>
             <div class="likes">
                 <p class="nOfLikes" v-text="numberOfLikes"></p>
-                <font-awesome-icon :icon="['fas', 'thumbs-up']" :class="{ 'liked': isLiked }" @click="like" />
+                <font-awesome-icon :icon="['fas', 'thumbs-up']" :class="{ 'liked': isLiked, 'like-clickable' : isAuthenticated }" @click="like" />
             </div>
         </div>
     </container>
@@ -60,12 +60,7 @@
 }
 .span-info {
     order: 1;
-    flex-grow: 3;   
-    cursor: pointer;
-}
-
-.span-info:hover {
-    color: #BBBBBB;
+    flex-grow: 3;  
 }
 
 cite.username {
@@ -90,7 +85,7 @@ cite.info {
     align-content: left;
     justify-content: left;
     flex-grow: 3;
-    font-size: 15   px;
+    font-size: 15px;
     width: 350px;
 }
 
@@ -109,15 +104,17 @@ cite.info {
 
 .fa-thumbs-up {
     display: inline-block;
+}
+
+.like-clickable {
     cursor: pointer;
 }
 
-.fa-thumbs-up:hover {
-    text-shadow: 0px 0px 3px #5F8D4E;
+.like-clickable:hover {
     transform: scale(1.1);
 }
 
-.fa-thumbs-up:active {
+.like-clickable:active {
     transform: scale(0.9);
 }
 
@@ -216,15 +213,18 @@ export default {
             return this.nOfLikes;
         },
         isLiked() {
-            return ((this.likedBefore && !this.liked) || (!this.likedBefore && this.liked));
+            return (this.likedBefore !== this.liked);
         },
         formattedDate() {
             return Moment(this.date).format("MMM DD, YYYY HH:mm:ss");
+        },
+        isAuthenticated() {
+            return this.$store.state.isAuthenticated;
         }
     },
     methods: {
         async like() {
-            if(this.cooldown || !this.$store.state.isAuthenticated) {
+            if(this.likeCooldown || !this.$store.state.isAuthenticated) {
                 return;
             }
             const path = "/api/social/like/" + this.messageId;
@@ -233,9 +233,9 @@ export default {
                     method: method
             });
             this.liked = !this.liked;
-            this.cooldown = true;
+            this.likeCooldown = true;
             setTimeout(() => {
-                this.cooldown = false;
+                this.likeCooldown = false;
             }, 1000);
         },
         userRoute() {

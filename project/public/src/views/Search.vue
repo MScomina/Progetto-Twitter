@@ -1,12 +1,12 @@
 <template>
     <div id="Search" class="Search">
-        <post/>
-        <post/>
+        <user/>
         <post/>
     </div>
 </template>
 
 <script>
+import User from "../components/User.vue";
 import Post from "../components/Post.vue";
 export default {
     data() {
@@ -15,6 +15,7 @@ export default {
         };
     },
     components: {
+        User,
         Post
     }
 }

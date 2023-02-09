@@ -28,7 +28,7 @@ const userSchema = new Schema({
     description: {
         type: String,
         default: "",
-        maxlength: 200
+        maxlength: 300
     }
 }, {timestamps: true});
 

@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 10px;
     animation: fadeInAnimation ease 0.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;

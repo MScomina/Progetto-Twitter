@@ -16,7 +16,7 @@ export default {
                 {"name" : "username", "type" : "text", "label" : "Username (5-20 characters)"},
                 {"name" : "name", "type" : "text", "label" : "Name (2-20 characters)"},
                 {"name" : "surname", "type" : "text", "label" : "Surname (2-20 characters)"},
-                {"name" : "description", "type" : "text", "label" : "Write a short description about yourself... (max 200 characters, optional)", "isParagraph" : true},
+                {"name" : "description", "type" : "text", "label" : "Write a short description about yourself... (max 300 characters, optional)", "isParagraph" : true},
                 {"name" : "password", "type" : "password", "label" : "Password"}
             ],
             buttonText: "Register!",
@@ -95,7 +95,6 @@ export default {
     order: 1;
 }
 .message {
-    margin-top: 20px;
     order: 2;
 }
 </style>

@@ -86,7 +86,6 @@ export default {
 }
 .form {
     order: 1;
-    margin-bottom: 20px;
 }
 .message {
     order: 2;
