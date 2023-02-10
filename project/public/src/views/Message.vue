@@ -43,7 +43,7 @@ export default {
         },
         messageNotFoundMessage() {
             if(typeof this.messageIdUrl !== "undefined" && this.messageIdUrl !== "") {
-                return "Couldn't find the message" + this.messageIdUrl + "with the username " + this.usernameUrl + ".";
+                return "Couldn't find the message " + this.messageIdUrl + " with the username " + this.usernameUrl + ".";
             }
             return "You didn't enter a proper message!";
         }
