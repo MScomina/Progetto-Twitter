@@ -11,7 +11,7 @@
         </div>
         <div class="break"></div>
         <div class="message">
-            <p v-text="messageInfo.message"></p>
+            <p v-for="(paragraph, index) in formatMessage" v-bind:key="index" v-text="paragraph" class="paragraph"></p>
         </div>
         <div class="break"></div>
         <div class="bottom">
@@ -48,7 +48,13 @@
     border-bottom: 1px solid #FFFFFF;
 }
 .message {
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: justify;
+}
+.paragraph {
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 .href {
     height: 6px;
@@ -143,6 +149,10 @@
     .time {
         font-size: 12px;
     }
+    .message {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
 }
 @media (max-width: 520px) {
     .author {
@@ -155,6 +165,10 @@
     .time {
         font-size: 10px;
     }
+    .message {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
 }
 @media (max-width: 420px) {
     .author {
@@ -166,6 +180,10 @@
     }
     .time {
         font-size: 9px;
+    }
+    .message {
+        margin-top: 4px;
+        margin-bottom: 4px;
     }
 }
 </style>
@@ -232,6 +250,12 @@ export default {
         },
         isAuthenticated() {
             return this.$store.state.isAuthenticated;
+        },
+        formatMessage() {
+            if(typeof this.messageInfo.message === "undefined") {
+                return [];
+            }
+            return this.messageInfo.message.split("\n");
         }
     },
     methods: {

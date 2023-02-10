@@ -19,7 +19,7 @@ router.post("/", json, async function(req, res) {
         res.status(400).json({"error": "MissingFieldError", "message": "Missing fields in JSON!"});
         return;
     }
-
+    let response = {};
     try {
         user = await User.findOne({"username": {$eq: authData.username}});
         if(user === null) {
@@ -30,7 +30,18 @@ router.post("/", json, async function(req, res) {
             "message": req.body.message,
             "user": user
         });
-        await message.save();
+        response = await message.save();
+        const author = {
+            "username" : response.user.username,
+            "name" : response.user.name,
+            "surname" : response.user.surname
+        };
+        response = { 
+            "message" : response.message,
+            "author" : author,
+            "createdAt" : response.createdAt,
+            "messageId" : response.messageId
+        }
     } catch(err) {
         if(err.name === "ValidationError") {
             res.status(400).json({"error": "ValidationError", "message": "There is a problem with the fields! Make sure to be within the range of length."});
@@ -39,8 +50,7 @@ router.post("/", json, async function(req, res) {
         res.status(500).json({"error": "InternalServerError", "message": "An error occourred!"});
         return;
     }
-
-    res.status(201).json({"message": "The message has been registered correctly!"});
+    res.status(201).json(response);
 
 });
 

@@ -3,6 +3,9 @@
         <nav class="navbar">
             <div class="nav-left">
                 <router-link to="/" class="nav-button">Home</router-link>
+                <div v-if="isAuthenticated">
+                    <router-link :to="pathToUsername" class="nav-button">Profile</router-link>
+                </div>
             </div>        
             <div class="nav-center">
                 <form @submit.prevent="search">
@@ -105,7 +108,7 @@
     transform: scale(0.9);
 }
 /*Special cases for small width screens, makes navbar smaller.*/
-@media (max-width: 768px) {
+@media (max-width: 840px) {
     .nav-button {
         padding: 5px 10px;
         font-size: 12px;
@@ -120,15 +123,22 @@
         border-radius: 10px;
     }
 }
+@media (max-width: 640px) {
+    .nav-button {
+        font-size: 10px;
+        border-radius: 5px;
+    }
+    .search-input {
+        font-size: 10px;
+    }
+}
 @media (max-width: 520px) {
     .nav-button {
         padding: 4px 8px;
-        font-size: 10px;
         border-radius: 4px;
     }
     .search-input {
         padding: 4px 8px;
-        font-size: 10px;
         border-radius: 8px;
     }
     .search-button {
@@ -137,13 +147,13 @@
 }
 @media (max-width: 420px) {
     .nav-button {
-        padding: 3px 6px;
-        font-size: 8px;
+        padding: 3px 5px;
+        font-size: 7px;
         border-radius: 3px;
     }
     .search-input {
-        padding: 3px 6px;
-        font-size: 8px;
+        padding: 3px 5px;
+        font-size: 7px;
         border-radius: 6px;
     }
     .search-button {
@@ -165,6 +175,9 @@ export default {
     computed : {
         isAuthenticated() {
             return this.$store.state.isAuthenticated;
+        },
+        pathToUsername() {
+            return "/user/"+ this.$store.state.username;
         }
     },
     methods: {

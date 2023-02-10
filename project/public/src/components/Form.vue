@@ -3,7 +3,7 @@
         <form @submit.prevent="submitForm" class="form">
             <h1 v-text="titleText"></h1>
             <div v-for="field in fields" :key="field.name">
-                <textarea v-if="field.isParagraph" :type="field.type" :placeholder="field.label" v-model="fieldValues[field.name]"></textarea>
+                <textarea v-if="field.isParagraph" :type="field.type" :placeholder="field.label" v-model="fieldValues[field.name]" :class="{ 'writingMessage' : isWritingMessage }"></textarea>
                 <input v-else :type="field.type" :placeholder="field.label" v-model="fieldValues[field.name]"/>
             </div>
             <button class="btn" type="submit" v-text="buttonText"></button>
@@ -30,6 +30,11 @@ textarea {
     border-radius: 5px;
     font-size: 18px;
     resize: none;
+}
+
+.writingMessage {
+    width: 400px;
+    height: 200px;
 }
 
 .form {
@@ -82,6 +87,10 @@ textarea {
         font-size: 15px;
         border-radius: 16px;
     }
+    .writingMessage {
+        width: 350px;
+        height: 160px;
+    }
 }
 @media (max-width: 520px) {
     input {
@@ -102,6 +111,10 @@ textarea {
         font-size: 12px;
         border-radius: 14px;
     }
+    .writingMessage {
+        width: 300px;
+        height: 130px;
+    }
 }
 @media (max-width: 420px) {
     input {
@@ -120,6 +133,10 @@ textarea {
         padding: 6px 12px;
         font-size: 10px;
         border-radius: 12px;
+    }
+    .writingMessage {
+        width: 260px;
+        height: 100px;
     }
 }
 </style>
@@ -157,6 +174,10 @@ export default {
         titleText: {
             type: String,
             default: "Title"
+        },
+        isWritingMessage: {
+            type: Boolean,
+            default: false
         },
         fields: Array
     }

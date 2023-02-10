@@ -107,7 +107,7 @@ body {
 .view {
     margin-top: 70px;
 }
-@media (max-width: 768px) {
+@media (max-width: 840px) {
     body {
         font-size: 15px;
     }
