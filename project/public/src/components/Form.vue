@@ -103,7 +103,7 @@ textarea {
         border-radius: 14px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     input {
         padding: 6px 12px;
         font-size: 10px;

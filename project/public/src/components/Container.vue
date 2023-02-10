@@ -53,7 +53,7 @@
         border-radius: 25px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .content {
         width: 300px;
         padding: 6px;

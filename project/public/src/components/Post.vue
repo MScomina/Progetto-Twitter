@@ -1,6 +1,7 @@
 <template>
     <container class="container">
         <div class="author">
+            <div class="href" @click="messageRoute"></div>
             <cite class="username">
                 <span class="span-username" v-text="formatUsername" @click="userRoute"></span>
             </cite>
@@ -20,7 +21,7 @@
             <div class="break"></div>
             <div class="likes">
                 <p class="nOfLikes" v-text="numberOfLikes"></p>
-                <font-awesome-icon :icon="['fas', 'thumbs-up']" :class="{ 'liked': isLiked, 'like-clickable' : isAuthenticated }" @click="like" />
+                <font-awesome-icon :icon="['fas', 'thumbs-up']" :class="{ 'liked': isLiked, 'like-clickable' : isAuthenticated }" @click.stop="like" />
             </div>
         </div>
     </container>
@@ -49,6 +50,16 @@
 .message {
     text-align: justify;
 }
+.href {
+    height: 6px;
+    width: 6px;
+    order: 1;
+    border-left: 50px;
+    border-radius: 2px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 3px #ddd;
+    cursor: pointer;
+}
 .span-username {
     font-style: italic;
     order: 2;
@@ -63,12 +74,12 @@
     flex-grow: 3;  
 }
 
-cite.username {
-    order: 2;
+.username {
+    order: 3;
     flex-grow: 1;
 }
-cite.info {
-    order: 1;
+.info {
+    order: 2;
     flex-grow: 3;
 }
 
@@ -129,6 +140,9 @@ cite.info {
     .bottom {
         height: 30px;
     }
+    .time {
+        font-size: 12px;
+    }
 }
 @media (max-width: 520px) {
     .author {
@@ -138,14 +152,20 @@ cite.info {
     .bottom {
         height: 25px;
     }
+    .time {
+        font-size: 10px;
+    }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .author {
         height: 18px;
         font-size: 9px;
     }
     .bottom {
         height: 22px;
+    }
+    .time {
+        font-size: 9px;
     }
 }
 </style>
@@ -240,6 +260,10 @@ export default {
         },
         userRoute() {
             const path = "/user/" + this.author.username;
+            this.$router.push({path:path});
+        },
+        messageRoute() {
+            const path = "/message/" + this.author.username + "/" + this.messageId;
             this.$router.push({path:path});
         }
     }

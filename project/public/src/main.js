@@ -5,6 +5,7 @@ import App from "./App.vue";
 import Follow from "./views/Follow.vue";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
+import Message from "./views/Message.vue";
 import NewMessage from "./views/NewMessage.vue";
 import Register from "./views/Register.vue";
 import Search from "./views/Search.vue";
@@ -25,9 +26,10 @@ const routes = [
     { path: "/login", component: Login, meta: { requiresAuth: false } },
     { path: "/write", component: NewMessage, meta: { requiresAuth: true } },
     { path: "/register", component: Register, meta: { requiresAuth: false } },
-    { path: "/search", component: Search, meta: { requiresAuth: false } },
-    { path: "/user", component: UserProfile, meta: { requiresAuth: false } },
-    { path: "/follows", component: Follow, meta: { requiresAuth: true } }
+    { path: "/search/:query", component: Search, meta: { requiresAuth: false } },
+    { path: "/user/:username", component: UserProfile, meta: { requiresAuth: false } },
+    { path: "/follows", component: Follow, meta: { requiresAuth: true } },
+    { path: "/message/:user/:messageId", component: Message, meta: { requiresAuth: false } }
     ];
 const store = createStore({
     state() {
@@ -62,6 +64,7 @@ const router = createRouter({
 });
 //I literally couldn't find any way of preventing "router.beforeEach" before initializing the state. Vue doesn't allow Promises in the main.js file.
 //I had to manually set a timeout of 250 ms to ensure the authentication of the user beforehand. It is slightly noticeable, but at least that guarantees a correct redirect in 99% of cases.
+//More info: https://stackoverflow.com/questions/40243417/how-to-make-an-async-call-in-a-beforecreate-hook-of-a-vue-instance
 setTimeout(() => {
     //https://stackoverflow.com/questions/52653337/vuejs-redirect-from-login-register-to-home-if-already-loggedin-redirect-from
     router.beforeEach((to, from, next) => {

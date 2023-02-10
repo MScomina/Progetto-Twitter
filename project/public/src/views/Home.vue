@@ -53,7 +53,7 @@ export default {
             paragraphsNoFeed: "You currently do not have any feeds! Start following someone to start getting feeds in your homepage!"
         };
     },
-    computed : {
+    computed: {
         isAuthenticated() {
             return this.$store.state.isAuthenticated;
         },

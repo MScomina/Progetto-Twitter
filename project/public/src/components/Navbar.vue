@@ -6,8 +6,8 @@
             </div>        
             <div class="nav-center">
                 <form @submit.prevent="search">
-                    <input type="text" id="search" class="search-input" placeholder="Search user..." />
-                    <router-link to="/search" class="nav-button search-button">Search</router-link>
+                    <input type="text" v-model="searchTerm" id="search" class="search-input" :placeholder="placeholder" @input="checkChars" maxlength="20" />
+                    <button type="submit" class="nav-button search-button">Search</button>
                 </form>
             </div>
             <div class="nav-right">
@@ -91,6 +91,7 @@
     border: 1px solid #FFFFFF;
     border-radius: 20px;
     order: 2;
+    cursor: pointer;
 }
 
 .nav-button:hover {
@@ -134,7 +135,7 @@
         border-radius: 8px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .nav-button {
         padding: 3px 6px;
         font-size: 8px;
@@ -154,6 +155,13 @@
 <script>
 export default {
     name: "Navbar",
+    data() {
+        return {
+            searchTerm: "",
+            placeholder: "Search user...",
+            searchCooldown: false
+        }
+    },
     computed : {
         isAuthenticated() {
             return this.$store.state.isAuthenticated;
@@ -161,14 +169,29 @@ export default {
     },
     methods: {
         search() {
-            console.log(`Searching for ${this.searchTerm}`);
-            /*const getResults = async () => {
-                try {
-
-                } catch(err) {
-
+            if(this.searchCooldown) {
+                return;
+            }
+            const searchQuery = this.searchTerm;
+            this.searchTerm = "";
+            if(searchQuery === "") {
+                if(this.placeholder !== "Write something!") {
+                    this.placeholder = "Write something!";
+                    setTimeout(() => {
+                        this.placeholder = "Search user...";
+                    }, 3000);
                 }
-            }*/
+                return;
+            }
+            const path = "/search/" + searchQuery;
+            this.$router.push({path:path});
+            this.searchCooldown = true;
+            setTimeout(() => {
+                this.searchCooldown = false;
+            }, 1000);
+        },
+        checkChars() {
+            this.searchTerm = this.searchTerm.replace(/[^-_.a-zA-Z0-9]/g, '');
         }
     }
 }

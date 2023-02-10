@@ -77,7 +77,7 @@ export default {
             }
         }
     },
-    async mounted() {
+    created() {
         let check = false;
         if(this.currentPath === "//") {
             document.title = "Homepage";
@@ -123,7 +123,7 @@ body {
         margin-top: 46px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     body {
         font-size: 10px;
     }

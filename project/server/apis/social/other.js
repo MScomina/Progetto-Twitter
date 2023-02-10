@@ -11,14 +11,36 @@ const checkJWT = require("../../database_handler.js").checkJWT;
 router.get("/users/:userId", async function(req, res) {
 
     const username = req.params.userId;
-    const user = await User.findOne({"username" : {$eq: username}}, "username name surname description -_id");
-
+    const user = await User.findOne({"username" : {$eq: username}});
     if(user === null) {
         res.status(404).json({"error" : "UsernameNotFound", "message": "Couldn't find that username!"});
         return;
     }
 
-    res.status(200).json(user);
+    let authData = checkJWT(req, res, false);
+    if(typeof authData === "undefined") {
+        authData = {
+            "username" : ""
+        };
+    }
+    let response = {
+        "username" : user.username,
+        "name" : user.name,
+        "surname" : user.surname,
+        "description" : user.description,
+        "isFollowing" : false
+    };
+    const authUser = await User.findOne({"username" : {$eq: authData.username}});
+    if(authUser === null) {
+        res.status(200).json(response);
+        return;
+    }
+    const follow = await Follow.findOne({"follower": authUser, "following" : user});
+    delete user._id;
+    if(follow !== null) {
+        response.isFollowing = true;
+    }
+    res.status(200).json(response);
 });
 
 
@@ -176,6 +198,20 @@ router.get("/search", async function(req, res) {
 
     const query = req.query.q.toLowerCase();
 
+    let authData = checkJWT(req, res, false);
+    if(typeof authData === "undefined") {
+        authData = {
+            "username" : ""
+        };
+    }
+
+    let userAuth = await User.findOne({"username" : { $eq: authData.username }});
+    if(userAuth === null) {
+        userAuth = {
+            "_id": ""
+        };
+    }
+
     const users = await User.aggregate([
         {
             $match: {
@@ -187,7 +223,35 @@ router.get("/search", async function(req, res) {
             }
         },
         {
-            $limit: 10
+            $lookup: {
+                from: "follows",
+                localField: "_id",
+                foreignField: "following",
+                as: "follow"
+            }
+        },
+        {
+            $addFields: {
+                follow: {
+                    $filter: {
+                        input: "$follow",
+                        as: "f",
+                        cond: {
+                            $eq: [ "$$f.follower", userAuth._id ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $addFields: {
+                isFollowing: {
+                    $gt: [ { $size: "$follow" }, 0 ]
+                }
+            }
+        },
+        {
+            $limit: 20
         },
         {
             $project: {
@@ -195,6 +259,7 @@ router.get("/search", async function(req, res) {
                 "name" : 1,
                 "surname" : 1,
                 "description" : 1,
+                "isFollowing": 1,
                 "_id" : 0
             }
         }
@@ -206,7 +271,6 @@ router.get("/search", async function(req, res) {
     }
 
     res.status(200).json({"users" : users});
-
 });
 
 module.exports = router;

@@ -36,7 +36,7 @@ router.get("/:userId", async function(req, res) {
             $addFields: {
                 "username" : "$following.username",
                 "name" : "$following.name",
-                "surname" : "$following.username",
+                "surname" : "$following.surname",
                 "description" : "$following.description"
             }
         },

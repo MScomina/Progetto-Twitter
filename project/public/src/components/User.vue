@@ -2,14 +2,14 @@
     <container class="container">
         <div id="user-data" class="upper-box">
             <div class="user-info">
-                <div v-text="userInfo.username"></div>
-                <div v-text="userInfo.name"></div>
-                <div v-text="userInfo.surname"></div>
+                <span v-text="userInfo.username" class="username" @click="goToProfile"></span><br>
+                <span v-text="userInfo.name"></span><br>
+                <span v-text="userInfo.surname"></span>
             </div>
-            <font-awesome-icon :icon="['fas', 'bell']" v-if="isAuthenticated" :class="{'follow' : isFollowing}" @click="followUser"></font-awesome-icon>
+            <font-awesome-icon :icon="['fas', 'bell']" v-if="shouldShowBell" :class="{'follow' : isFollowing}" @click.stop="followUser"></font-awesome-icon>
         </div>
         <div class="description"><b>Description:</b></div>
-        <div id="description" v-text="user.description">
+        <div id="description" v-text="computedDescription">
         </div>
     </container>
 </template>
@@ -19,8 +19,7 @@
     display: flex;
     flex-direction: row;
     align-content: center;
-    text-align: left;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 5px;
     border-bottom: 1px solid #FFFFFF;
 }
@@ -28,15 +27,22 @@
     color: #C54047;
 }
 .user-info {
-    flex-grow: 8;
-    order: 1;
+    text-align: left;
+    width: 94%;
     margin-bottom: 5px;
     margin-left: 5px;
 }
 .fa-bell {
-    flex-grow: 1;
-    order: 2;
+    text-align: right;
+    width: 6%;
     cursor: pointer;
+}
+.username {
+    cursor: pointer;
+}
+
+.username:hover { 
+    color: #BBBBBB;
 }
 
 .fa-bell:hover {
@@ -82,6 +88,12 @@ export default {
         },
     },
     computed: {
+        computedDescription() {
+            if(this.user.description === "") {
+                return "No description set!";
+            }
+            return this.user.description;
+        },
         isFollowing() {
             return (this.following !== this.followingBefore);
         },
@@ -92,8 +104,8 @@ export default {
                 "surname" : "Surname: " + this.user.surname,
             };
         },
-        isAuthenticated() {
-            return this.$store.state.isAuthenticated;
+        shouldShowBell() {
+            return this.$store.state.isAuthenticated && (this.user.username !== this.$store.state.username);
         }
     },
     methods: {
@@ -111,6 +123,10 @@ export default {
             setTimeout(() => {
                 this.followCooldown = false;
             }, 1000);
+        },        
+        goToProfile() {
+            const path = "/user/" + this.user.username;
+            this.$router.push({path:path});
         }
     }
 }

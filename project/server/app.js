@@ -19,6 +19,13 @@ async function startup() {
 
   app.use(cookieParser());
 
+  //https://stackoverflow.com/questions/36125216/express-handling-urierror-failed-to-decode-param
+  app.use(function(err, req, res, next) {
+    if (err instanceof URIError) {
+        err.message = 'Failed to decode param: ' + req.url;
+        err.status = err.statusCode = 400;
+    } 
+  });
   
   app.use(express.static(path.join(__dirname, "..", "public/dist")));
 
