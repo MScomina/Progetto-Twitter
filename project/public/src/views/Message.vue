@@ -9,7 +9,7 @@
             </div>
             <div v-else>
                 <message :title="title" />
-                <post :author="message.author" :messageId="message.messageId" :message="message.message" :date="message.createdAt" :nOfLikes="message.numberOfLikes" :likedBefore="message.liked"/>
+                <post :author="message.author" :messageInfo="{...message, author: undefined}"/>
             </div>
         </div>
     </div>

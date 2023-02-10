@@ -9,7 +9,6 @@
 <script>
 import FormComponent from "../components/Form.vue";
 import Message from "../components/Message.vue";
-import Post from "../components/Post.vue";
 export default {
     data() {
         return {
@@ -30,8 +29,7 @@ export default {
     },
     components: {
         FormComponent,
-        Message,
-        Post
+        Message
     },
     methods: {
         async handleSubmit(fieldValues) {

@@ -12,7 +12,7 @@
             </div>
             <div v-else>
                 <div v-for="message in messages" :key="message.messageId">
-                    <post :author="user" :messageId="message.messageId" :message="message.message" :date="message.createdAt" :nOfLikes="message.numberOfLikes" :likedBefore="message.liked"/>
+                    <post :author="user" :messageInfo="message" />
                 </div>
             </div>
         </div>

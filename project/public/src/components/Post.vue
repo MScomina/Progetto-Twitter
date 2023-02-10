@@ -11,7 +11,7 @@
         </div>
         <div class="break"></div>
         <div class="message">
-            <p v-text="message"></p>
+            <p v-text="messageInfo.message"></p>
         </div>
         <div class="break"></div>
         <div class="bottom">
@@ -186,10 +186,6 @@ export default {
         };
     },
     props: {
-        messageId : {
-            type: String,
-            default: "00000000-0000-0000-0000-0000000000"
-        },
         author: {
             type: Object,
             default: function() {
@@ -200,21 +196,17 @@ export default {
                 }
             }
         },
-        message: {
-            type: String,
-            default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        date: {
-            type: String,
-            default: "1970-01-01T00:00:00Z"
-        },
-        nOfLikes : {
-            type: Number,
-            default: 0
-        },
-        likedBefore: {
-            type: Boolean,
-            default: false
+        messageInfo: {
+            type: Object,
+            default: function() {
+                return {
+                    "messageId" : "00000000-0000-0000-0000-0000000000",
+                    "message" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    "createdAt" : "1970-01-01T00:00:00Z",
+                    "numberOfLikes" : 0,
+                    "liked" : false
+                }
+            }
         }
     },
     computed: {
@@ -225,18 +217,18 @@ export default {
             return "@" + this.author.username;
         },        
         numberOfLikes() {
-            if(!this.likedBefore && this.liked) {
-                return this.nOfLikes+1;
-            } else if(this.likedBefore && this.liked) {
-                return this.nOfLikes-1;
+            if(!this.messageInfo.liked && this.liked) {
+                return this.messageInfo.numberOfLikes+1;
+            } else if(this.messageInfo.liked && this.liked) {
+                return this.messageInfo.numberOfLikes-1;
             }
-            return this.nOfLikes;
+            return this.messageInfo.numberOfLikes;
         },
         isLiked() {
-            return (this.likedBefore !== this.liked);
+            return (this.messageInfo.liked !== this.liked);
         },
         formattedDate() {
-            return Moment(this.date).format("MMM DD, YYYY HH:mm:ss");
+            return Moment(this.messageInfo.createdAt).format("MMM DD, YYYY HH:mm:ss");
         },
         isAuthenticated() {
             return this.$store.state.isAuthenticated;
@@ -247,8 +239,8 @@ export default {
             if(this.likeCooldown || !this.$store.state.isAuthenticated) {
                 return;
             }
-            const path = "/api/social/like/" + this.messageId;
-            const method = (this.liked !== this.likedBefore) ? "DELETE" : "POST";
+            const path = "/api/social/like/" + this.messageInfo.messageId;
+            const method = (this.liked !== this.messageInfo.liked) ? "DELETE" : "POST";
             const response = fetch(path, {
                     method: method
             });
@@ -263,7 +255,7 @@ export default {
             this.$router.push({path:path});
         },
         messageRoute() {
-            const path = "/message/" + this.author.username + "/" + this.messageId;
+            const path = "/message/" + this.author.username + "/" + this.messageInfo.messageId;
             this.$router.push({path:path});
         }
     }

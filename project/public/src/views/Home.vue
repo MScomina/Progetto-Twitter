@@ -10,7 +10,7 @@
             <div v-else>
                 <message :title="titleFeed" class="feed"/>
                 <div v-for="feed in feeds" :key="feed.messageId">
-                    <post :messageId="feed.messageId" :author="feed.author" :message="feed.message" :date="feed.createdAt" :nOfLikes="feed.numberOfLikes" :likedBefore="feed.liked"/>
+                    <post :messageInfo="{...feed, author: undefined}" :author="feed.author"/>
                 </div>
             </div>
         </div>
