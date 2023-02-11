@@ -1,4 +1,4 @@
-### Project
+## Project
 
 Project for the course "Programmazione Web" - UniTS.
 
@@ -6,3 +6,13 @@ The project has already been compiled inside of the /project/public/dist folder.
 The server is already coded to send the index.html file inside of /project/public/dist.
 
 You can run the project by simply calling npm start inside of the /project/server folder.
+
+### Database initialization
+
+The database has an automatic initialization that can be turned off by changing the value "DEFAULT_DATABASE" in the .env file to 0.
+
+This is how it gets initialized:
+- 4 users get created: mario_rossi, luigi_verdi, leonardo_di_caprio and albert_einstein.
+- 2 messages, one from mario_rossi and one from albert_einstein, get created.
+- mario_rossi follows luigi_verdi and albert_einstein, luigi_verdi follows mario_rossi and leonardo_di_caprio.
+- mario_rossi likes his own message, luigi_verdi likes mario_rossi's message, leonardo_di_caprio likes albert_einstein's post.

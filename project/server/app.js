@@ -1,13 +1,14 @@
 const express = require("express");
 const api = require("./apis/api.js");
 const db_handler = require("./database_handler.js");
+const {initializeDatabase} = require("./script.js");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+require("dotenv").config();
 
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 async function startup() {
   
@@ -38,6 +39,10 @@ async function startup() {
   });
 
   app.use("/api", api);
+
+  if(Number(process.env.DEFAULT_DATABASE) !== 0) {
+    initializeDatabase();
+  }
 
   app.listen(port, () => {
     console.log(`In ascolto sulla porta ${port}!`);
