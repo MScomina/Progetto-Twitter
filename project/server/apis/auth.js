@@ -73,7 +73,7 @@ router.post("/signin", json, async function (req, res) {
     bcrypt.compare(document.password, credentials.password, function(err, result) {
         if (result) {  
             const data = {"username": credentials.username};
-            const secret = "I'm a teapot and i shouldn't be here. I should be secret.";
+            const secret = process.env.SECRET_JWT || "I'm a teapot and i shouldn't be here. I should be secret.";
             const token = jwt.sign(data, secret, {expiresIn: 86400});   // Scade in 1 giorno!
             res.cookie("jwt", token, {"httpOnly": true, "sameSite": "strict"});
             res.status(200).json({"message":"Authenticated successfully!"});

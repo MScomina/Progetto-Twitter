@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const url = "mongodb://127.0.0.1:27017/social_network";
 const jwt = require("jsonwebtoken");
 
+const url = process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/social_network";
+const secret = process.env.SECRET_JWT || "I'm a teapot and i shouldn't be here. I should be secret.";
 
 async function openConnection() {
   try {
@@ -30,7 +31,7 @@ function checkJWT(req, res, shouldRespond=true) {
 
   let authData;
   try {
-      authData = jwt.verify(req.cookies.jwt, "I'm a teapot and i shouldn't be here. I should be secret."); 
+      authData = jwt.verify(req.cookies.jwt, secret); 
   } catch(err) {
       if(err instanceof jwt.TokenExpiredError) {
           if(shouldRespond) res.status(401).json({"error": "ExpiredJWTError", "message": "The JWT token has expired!"});
