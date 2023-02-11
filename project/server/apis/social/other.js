@@ -56,6 +56,11 @@ router.get("/feed", async function(req, res) {
 
     const user = await User.findOne({"username" : {$eq: authData.username}});
 
+    if(user === null) {
+        res.status(404).json({"error": "NonExistantAuthenticatedUser", "message":"Authenticated user not in database? Report this."});
+        return;
+    }
+
     //https://stackoverflow.com/questions/36193289/moongoose-aggregate-match-does-not-match-ids
     //https://stackoverflow.com/questions/64391045/mongodb-mongoose-query-get-count-of-documents-by-reference
     const followedUsersIds = await Follow.aggregate([
@@ -180,7 +185,7 @@ router.get("/whoami", async function(req, res) {
         return;
     }
     
-    const user = await User.findOne({"username" : authData.username}, "username name surname description -_id");
+    const user = await User.findOne({"username" : {$eq: authData.username}}, "username name surname description -_id");
 
     if(user === null) {
         res.status(404).json({"error": "NonExistantAuthenticatedUser", "message":"Authenticated user not in database? Report this."});
