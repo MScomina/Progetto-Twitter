@@ -1,0 +1,21 @@
+version: "3"
+services:
+ app:
+   restart: unless-stopped
+   container_name: app
+   network_mode: "host"
+   build: .
+   command: nodemon --watch /usr/src/app -e js app.js
+   ports:
+     - '3000:3000'
+ mongo:
+   container_name: mongo
+   restart: unless-stopped
+   image: mongo
+   volumes:
+     - mongo_data:/data/db
+   ports:
+     - '27017:27017' 
+volumes:
+  mongo_data:
+    external: true
