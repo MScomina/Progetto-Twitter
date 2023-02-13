@@ -15,7 +15,7 @@ This is how it gets initialized:
 - 4 users get created: mario_rossi, luigi_verdi, leonardo_di_caprio and albert_einstein. Everyone has the password "password".
 - 2 messages, one from mario_rossi and one from albert_einstein, get created.
 - mario_rossi follows luigi_verdi and albert_einstein, luigi_verdi follows mario_rossi and leonardo_di_caprio.
-- mario_rossi likes his own message, luigi_verdi likes mario_rossi's message, leonardo_di_caprio likes albert_einstein's post.
+- mario_rossi likes his own message, luigi_verdi likes mario_rossi's message, leonardo_di_caprio likes albert_einstein's message.
 
 ### Docker Container
 
