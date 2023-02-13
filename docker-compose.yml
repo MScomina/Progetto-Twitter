@@ -5,7 +5,6 @@ services:
    container_name: app
    network_mode: "host"
    build: .
-   command: nodemon --watch /usr/src/app -e js app.js
    ports:
      - '3000:3000'
  mongo:

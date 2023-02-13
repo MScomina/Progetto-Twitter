@@ -9,3 +9,4 @@ RUN npm install
 COPY ./project/public /usr/src/app/public
 COPY ./project/server /usr/src/app/server
 EXPOSE 3000
+CMD ["npm", "start"]
